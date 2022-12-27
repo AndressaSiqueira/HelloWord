@@ -21,10 +21,10 @@ spec:
       containers:
         - name: node-gettingstarted
           # enter the path to your image, be sure to include the correct region prefix
-          image: vcp.ocir.io/id3kyspkytmr/node-express-getting-started:${BUILDRUN_HASH}
+          image: vcp.ocir.io/id3kyspkytmr/node-express-getting-started:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 3333
+            - containerPort: 80
               protocol: TCP
       imagePullSecrets:
       - name: ocisecret
@@ -41,8 +41,8 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: 3333
+    - port: 80
       protocol: TCP
-      targetPort: 3333
+      targetPort: 80
   selector:
     app: node-gettingstarted
