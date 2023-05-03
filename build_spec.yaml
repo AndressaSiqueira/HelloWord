@@ -11,7 +11,6 @@ env:
     sonar_project: "oci_build_sonar"
     sonar_quality_wait: "true"
 
-
   # the value of a vaultVariable is the secret-id (in OCI ID format) stored in the OCI Vault service
   # you can then access the value of that secret in your build_spec.yaml commands
   vaultVariables:
@@ -73,7 +72,7 @@ steps:
       cd ${OCI_WORKSPACE_DIR}/node_express
       npm test
 
-   - type: Command
+  - type: Command
     timeoutInSeconds: 600
     name: "Sonar Quality Check"
     command: |
