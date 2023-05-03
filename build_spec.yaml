@@ -14,8 +14,8 @@ env:
   # the value of a vaultVariable is the secret-id (in OCI ID format) stored in the OCI Vault service
   # you can then access the value of that secret in your build_spec.yaml commands
   vaultVariables:
-    sonar_token: "ocid1.vaultsecret.oc1.sa-saopaulo-1.amaaaaaatsbrckqalpzmg2fo6x4ms6kcprcoqdvwcnxtkwxkkejtq5jy3vfa"
-    sonar_url: "ocid1.vaultsecret.oc1.sa-saopaulo-1.amaaaaaatsbrckqarihxvqf45bnetv7lcdcuhwnzpeo4dfges742t4es6ziq"
+    sonar_token: "sqp_9da0c944888e865327a593acef309b96249b0e94"
+    sonar_url: "http://144.22.216.164:9000"
   
   # exportedVariables are made available to use as parameters in sucessor Build Pipeline stages
   # For this Build to run, the Build Pipeline needs to have a BUILDRUN_HASH parameter set
