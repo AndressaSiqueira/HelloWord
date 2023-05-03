@@ -7,11 +7,16 @@ env:
   # these are local variables to the build config
   variables:
     key: "value"
+    sonar_cli_version: "4.6.2.2472"
+    sonar_project: "oci_build_sonar"
+    sonar_quality_wait: "true"
+
 
   # the value of a vaultVariable is the secret-id (in OCI ID format) stored in the OCI Vault service
   # you can then access the value of that secret in your build_spec.yaml commands
   vaultVariables:
-  #  EXAMPLE_SECRET: "YOUR-SECRET-OCID"
+    sonar_token: "ocid1.vaultsecret.oc1.sa-saopaulo-1.amaaaaaatsbrckqalpzmg2fo6x4ms6kcprcoqdvwcnxtkwxkkejtq5jy3vfa"
+    sonar_url: "ocid1.vaultsecret.oc1.sa-saopaulo-1.amaaaaaatsbrckqarihxvqf45bnetv7lcdcuhwnzpeo4dfges742t4es6ziq"
   
   # exportedVariables are made available to use as parameters in sucessor Build Pipeline stages
   # For this Build to run, the Build Pipeline needs to have a BUILDRUN_HASH parameter set
@@ -67,6 +72,29 @@ steps:
     command: |
       cd ${OCI_WORKSPACE_DIR}/node_express
       npm test
+
+   - type: Command
+    timeoutInSeconds: 600
+    name: "Sonar Quality Check"
+    command: |
+      cd ${OCI_WORKSPACE_DIR}
+      wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${sonar_cli_version}-linux.zip 1>/dev/null 2>/dev/null
+      unzip sonar-scanner-cli-${sonar_cli_version}-linux.zip 1>/dev/null
+      PATH=$PATH:"sonar-scanner-${sonar_cli_version}-linux/bin"
+      sonar-scanner \
+          -Dsonar.projectKey=${sonar_project} \
+          -Dsonar.sources=. \
+          -Dsonar.host.url=${sonar_url} \
+          -Dsonar.login=${sonar_token} \
+          -Dsonar.qualitygate.wait=${sonar_quality_wait}
+    
+    onFailure:
+      - type: Command
+        command: |
+          echo "Handling Failure"
+          echo "Failure successfully handled"
+        timeoutInSeconds: 40
+        runAs: root 
 
   - type: Command
     timeoutInSeconds: 1200
