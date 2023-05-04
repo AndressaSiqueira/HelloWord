@@ -9,7 +9,6 @@ env:
     key: "value"
     sonar_cli_version: "4.6.2.2472"
     sonar_project: "SonarDevops"
-    sonar_quality_wait: "true"
 
   # the value of a vaultVariable is the secret-id (in OCI ID format) stored in the OCI Vault service
   # you can then access the value of that secret in your build_spec.yaml commands
