@@ -8,7 +8,7 @@ env:
   variables:
     key: "value"
     sonar_cli_version: "4.6.2.2472"
-    sonar_project: "oci_build_sonar"
+    sonar_project: "SonarDevops"
     sonar_quality_wait: "true"
 
   # the value of a vaultVariable is the secret-id (in OCI ID format) stored in the OCI Vault service
